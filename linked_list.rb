@@ -54,6 +54,7 @@ class LinkedList
 	end
 
 	def find_index(idx)
+		# method uses zero-based indexing, so index cannot exceed @count - 1
 		if idx == nil
 			raise "Index cannot be nil"
 		elsif idx >= @count
