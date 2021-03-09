@@ -28,15 +28,20 @@ class LinkedList
 		return result
 	end
 
-	def search(search)
+	def search(term)
 		# returns true if the value is found in the list
 		# consider changing this behavior to return the node
 		this_node = @head
 
-		return true if this_node.data == search
-		return true if this_node.data == search while this_node = this_node.next_node
+		return true if this_node.data == term
+		return true if this_node.data == term while this_node = this_node.next_node
 
 		return false
+	end
+
+	def find_last
+		this_node = @head
+		return this_node if this_node.next_node == nil while this_node = this_node.next_node
 	end
 
 	def add_head(value)
@@ -61,7 +66,9 @@ class LinkedList
 		else
 			# if the tail is nil, add node as next value of head node
 			@tail = LinkedListNode.new(value)
-			@head.next_node=(@tail)
+
+			last_node = find_last
+			last_node.next_node=(@tail)
 		end
 
 		increment_count
