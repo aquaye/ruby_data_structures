@@ -21,8 +21,7 @@ class LinkedList
 	end
 
 	def iterate
-		# iterates the entire list and
-		# returns an array of the list data
+		# iterates the entire list and returns an array of the list data
 		this_node = @head
 		result = [this_node.data]
 		result.push(this_node.data) while this_node = this_node.next_node
@@ -30,6 +29,8 @@ class LinkedList
 	end
 
 	def search(search)
+		# returns true if the value is found in the list
+		# consider changing this behavior to return the node
 		this_node = @head
 
 		return true if this_node.data == search
@@ -76,7 +77,7 @@ end
 class LinkedListNode
 	attr_accessor :next_node
 	attr_reader :data
-	
+
 	# a node in the list
 	def initialize(data=nil, next_node=nil)
 		@data = data
