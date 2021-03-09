@@ -108,10 +108,29 @@ class LinkedList
 		increment_count
 	end
 
+	def remove_head
+		new_head = @head.next_node
+
+		@head = new_head
+
+		decrement_count
+	end
+
+	def remove_tail
+		second_to_last = find_index(@count - 2)
+		second_to_last.next_node=(nil)
+		@tail = second_to_last
+		decrement_count
+	end
+
 	private
 
 	def increment_count
 		@count += 1
+	end
+
+	def decrement_count
+		@count -= 1
 	end
 end
 
@@ -177,6 +196,10 @@ puts "New count: #{linkedlist.count}"
 # get tail node
 puts "Tail node: #{linkedlist.tail.data}"
 
+# get second to last (mirroring algo for remove_tail method)
+count = linkedlist.count
+puts "Second to last: #{linkedlist.find_index(count - 2).data}"
+
 # get head node
 puts "Head node: #{linkedlist.head.data}"
 
@@ -188,6 +211,36 @@ puts "Node at index 3: #{linkedlist.find_index(3).data}"
 
 # find the first node (index 0)
 puts "Node at index 0: #{linkedlist.find_index(0).data}"
+
+# remove tail
+linkedlist.remove_tail
+
+# get new count
+puts "New count: #{linkedlist.count}"
+
+# get tail node
+puts "Tail node after removal: #{linkedlist.tail.data}"
+
+# remove tail
+linkedlist.remove_tail
+
+# get new count
+puts "New count: #{linkedlist.count}"
+
+# get tail node
+puts "Tail node after another removal: #{linkedlist.tail.data}"
+
+# get head node
+puts "Head node before removal: #{linkedlist.head.data}"
+
+# remove head node
+linkedlist.remove_head
+
+# get new count
+puts "New count after removing head: #{linkedlist.count}"
+
+# get head node
+puts "Head node after removal: #{linkedlist.head.data}"
 
 # Uncomment for intentionally failing cases
 
