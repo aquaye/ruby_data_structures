@@ -2,6 +2,8 @@
 
 class LinkedList
 	# a singly linked list
+	# nodes can be added at the beginning or the end of the list (for implementing stacks and queues later)
+	# a list can be searched for known values using the `search` method, which returns true if the value is found
 
 	attr_reader :head, :tail, :count
 	# initialize the linked list
@@ -21,7 +23,7 @@ class LinkedList
 	end
 
 	def iterate
-		# iterates the entire list and returns an array of the list data
+		# iterates the entire list and returns an array of the list data in the order encountered
 		if @head != nil
 			this_node = @head
 			result = [this_node.data]
@@ -44,16 +46,38 @@ class LinkedList
 	end
 
 	def find_last
+		# find the last node in the list, for use with `add_tail`
+		# consider making private :shrug:
+		# this could now be `find_index(@count - 1)`
 		this_node = @head
 		return this_node if this_node.next_node == nil while this_node = this_node.next_node
 	end
 
+	def find_index(idx)
+		if idx == nil
+			raise "Index cannot be nil"
+		elsif idx >= @count
+			raise "Index cannot exceed the number of nodes minus one"			
+		else
+			this_node = @head
+			idx.times do
+				this_node = this_node.next_node
+			end
+			return this_node
+		end
+	end
+
 	def add_head(value)
 		if @head != nil
+			# if head exists create new node with current head as next value, set new node to head
 			new_node = LinkedListNode.new(value, @head)
 
 			@head = new_node
 		else
+			# probably a moot case since head can't be nil now...
+			# until node deletion is supported, maybe
+
+			# anyways, create a new node with nil next pointer and set to head instance variable
 			@head = LinkedListNode.new(value)
 		end
 
@@ -62,10 +86,11 @@ class LinkedList
 
 	def add_tail(value)
 		if @tail != nil
+			# create new node
 			new_node = LinkedListNode.new(value)
-
+			# set current tail's next pointer to the new node
 			@tail.next_node=(new_node)
-
+			# set tail to the new node
 			@tail = new_node
 		else
 			# if the tail is nil, add node as next value of head node
@@ -150,3 +175,20 @@ puts "Tail node: #{linkedlist.tail.data}"
 
 # get head node
 puts "Head node: #{linkedlist.head.data}"
+
+# find last node and output data
+puts "Last node data: #{linkedlist.find_last.data}"
+
+# find an arbitrary node and output data
+puts "Node at index 3: #{linkedlist.find_index(3).data}"
+
+# find the first node (index 0)
+puts "Node at index 0: #{linkedlist.find_index(0).data}"
+
+# Uncomment for intentionally failing cases
+
+# what happens when i search for a non-existent node?
+# puts "Non-existent node: #{linkedlist.find_index(10)}"
+
+# what happens when i attempt to initialize an empty list?
+# puts "Creating an empty list: #{LinkedList.new}"
