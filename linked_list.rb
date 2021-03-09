@@ -5,7 +5,8 @@ class LinkedList
 
 	attr_reader :head, :tail, :count
 	# initialize the linked list
-	# accepts up to one value
+	# accepts one value
+	# raise exception for empty list since it's pretty hard to deal with otherwise
 	def initialize(value=nil)
 		@count = 0
 		@tail = nil
@@ -15,17 +16,20 @@ class LinkedList
 			@tail = @head
 			increment_count
 		else
-			@head = nil
-			puts "Creating an empty list"
+			raise "I'd prefer that you didn't make an empty list"
 		end
 	end
 
 	def iterate
 		# iterates the entire list and returns an array of the list data
-		this_node = @head
-		result = [this_node.data]
-		result.push(this_node.data) while this_node = this_node.next_node
-		return result
+		if @head != nil
+			this_node = @head
+			result = [this_node.data]
+			result.push(this_node.data) while this_node = this_node.next_node
+			return result
+		else
+			raise "The list would have to be empty, how did you even reach this case?"
+		end
 	end
 
 	def search(term)
@@ -65,6 +69,7 @@ class LinkedList
 			@tail = new_node
 		else
 			# if the tail is nil, add node as next value of head node
+			# this case should be extraneous since eliminating empty lists
 			@tail = LinkedListNode.new(value)
 
 			last_node = find_last
