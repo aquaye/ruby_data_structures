@@ -4,6 +4,7 @@ class LinkedList
 	# a singly linked list
 	# nodes can be added at the beginning or the end of the list (for implementing stacks and queues later)
 	# a list can be searched for known values using the `search` method, which returns true if the value is found
+	# nodes can be located and returned by index, and from the end of the list because it's a convenient utility method
 
 	attr_reader :head, :tail, :count
 	# initialize the linked list
@@ -15,6 +16,8 @@ class LinkedList
 
 		if value != nil
 			@head = LinkedListNode.new(value)
+			# tail and head are equivalent when list is one member
+			# we'll see how this goes when deleting nodes is implemented 
 			@tail = @head
 			increment_count
 		else
